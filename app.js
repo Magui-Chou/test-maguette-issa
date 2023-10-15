@@ -6,14 +6,25 @@ const app = express();
 
 //app.use('/fichiers',fichierRoute);
 
-app.use((err, req, res, next) => {
-    res.status(500).send('Quelque chose s\'est mal passe!');
+app.use(( req, res, next) => {
+    //res.status(500).send('Quelque chose s\'est mal passe!');
+    let sexe = 'garcon'
+    if (sexe == 'garcon') {
+        req.user ='Issa KANE est  un garcon';
+
+    }
+    else {
+        req.user ='Maguette DRAME est une fille';
+    }
+    next();
 });
 
 
 app.get('/erreur',(req, res, next) => {
-    const erreur = new Error('Ceciest un erreur de test');
-    next(erreur);
+    //const erreur = new Error('Ceci est un erreur de test');
+    //next(erreur);
+    res.status(200).send('Bonjour, '+req.user);
+
 });
 
 
@@ -23,7 +34,7 @@ app.get('/erreur',(req, res, next) => {
 
 const port = process.env.PORT || 3001;
 app.listen(port, () =>{
-    console.log('Le serveur Express ecoute sur le port ${port}');
+    console.log('Le serveur Express ecoute sur le port ',port);
 });
 
 //app.listen(3001);
