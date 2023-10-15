@@ -1,6 +1,29 @@
-const express = reauire('express');
+const express = require('express');
+
 const app = express();
-app.get('/',(request,response) =>{
-    response.send('Es ce que j'/'ai reussi le test?');
+
+//const fichierRoute = require('./routes/fichier');
+
+//app.use('/fichiers',fichierRoute);
+
+app.use((err, req, res, next) => {
+    res.status(500).send('Quelque chose s\'est mal passe!');
 });
-app.listen(30001);
+
+
+app.get('/erreur',(req, res, next) => {
+    const erreur = new Error('Ceciest un erreur de test');
+    next(erreur);
+});
+
+
+
+
+
+
+const port = process.env.PORT || 3001;
+app.listen(port, () =>{
+    console.log('Le serveur Express ecoute sur le port ${port}');
+});
+
+//app.listen(3001);
